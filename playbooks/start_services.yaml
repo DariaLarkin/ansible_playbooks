@@ -1,51 +1,43 @@
 ---
-- name: My First playbook
-  hosts: all 
+- name: Starts Services
+  hosts: all  #DB
   become: true
-  become_method: sudo 
+  become_method: sudo
   user: centos
-  tasks: 
-  - name: Install package 
-    package: 
-      name: httpd
-      state: installed 
+  ignore_errors: true          #Dont stop if there are errors
+  tasks:
 
-
-- name: Start r1soft on CentOS 7
-  when: (ansible_distribution == "CentOS" and ansible_distribution_major_version == "7")
-  systemd: 
+  - name: Stop r1soft on CentOS 7
+    when: (ansible_distribution == “CentOS” and ansible_distribution_major_version == “7")
+    systemd:
       name: sbm-agent
       state: started
-  ignore_errors: true
+    ignore_errors: true
 
-
-- name: Start r1soft on CentOS 6
-  when: (ansible_distribution == "CentOS" and ansible_distribution_major_version == "6")
-  service: 
+  - name: Stop r1soft on CentOS 6
+    when: (ansible_distribution == “CentOS” and ansible_distribution_major_version == “6")
+    service:
       name: cdp-agent
       state: started
-  ignore_errors: true
+    ignore_errors: true
 
-
-- name: Start Filebeat
-  when: (ansible_distribution == "CentOS" and ansible_distribution_major_version == "7")
-  systemd: 
+  - name: Stop Filebeat
+    when: (ansible_distribution == “CentOS” and ansible_distribution_major_version == “7")
+    systemd:
       name: filebeat
       state: started
-  ignore_errors: true
+    ignore_errors: true
 
-
-- name: Start NRPE
-  when: (ansible_distribution == "CentOS" and ansible_distribution_major_version == "7")
-  systemd: 
+  - name: Stop NRPE
+    when: (ansible_distribution == “CentOS” and ansible_distribution_major_version == “7")
+    systemd:
       name: nrpe
       state: started
-  ignore_errors: true
-
-
-- name: Start Mariadb
-  when: (ansible_distribution == "CentOS" and ansible_distribution_major_version == "7")
-  systemd: 
+    ignore_errors: true
+    
+  - name: Stop Mariadb
+    when: (ansible_distribution == “CentOS” and ansible_distribution_major_version == “7")
+    systemd:
       name: mariadb
       state: started
-  ignore_errors: true
+    ignore_errors: true
