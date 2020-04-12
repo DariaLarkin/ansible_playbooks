@@ -1,29 +1,34 @@
 ---
-- name: My First playbook
-  hosts: all 
+- name: Stop playbook
+  hosts: all  #DB
   become: true
-  become_method: sudo 
+  become_method: sudo
   user: centos
-  tasks: 
-  - name: Stop r1soft 
-    systemd: 
+  ignore_errors: true          #Dont stop if there are errors
+  tasks:
+
+  - name: Stop r1soft
+    when: (ansible_distribution == “CentOS” and ansible_distribution_major_version == “7")
+    systemd:
       name: sbm-agent
-      state: stopped 
+      state: stopped
+    ignore_errors: true
 
 
-  - name: Stop Filebeat 
-    systemd: 
+  - name: Stop Filebeat
+    systemd:
       name: filebeat
-      state: stopped 
-
+      state: stopped
+    ignore_errors: true
 
   - name: Stop NRPE
-    systemd: 
+    systemd:
       name: nrpe
-      state: stopped 
+      state: stopped
+    ignore_errors: true
 
-
-  - name: Stop Mariadb 
-    systemd: 
+  - name: Stop Mariadb
+    systemd:
       name: mariadb
-      state: stopped 
+      state: stopped
+    ignore_errors: true

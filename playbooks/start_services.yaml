@@ -1,5 +1,5 @@
 ---
-- name: Stop playbook
+- name: Start playbook
   hosts: all  #DB
   become: true
   become_method: sudo
@@ -7,28 +7,28 @@
   ignore_errors: true          #Dont stop if there are errors
   tasks:
 
-  - name: Stop r1soft
+  - name: Start r1soft
     when: (ansible_distribution == “CentOS” and ansible_distribution_major_version == “7")
     systemd:
       name: sbm-agent
-      state: stopped
+      state: started
     ignore_errors: true
 
 
-  - name: Stop Filebeat
+  - name: Start Filebeat
     systemd:
       name: filebeat
-      state: stopped
+      state: started
     ignore_errors: true
 
-  - name: Stop NRPE
+  - name: Start NRPE
     systemd:
       name: nrpe
-      state: stopped
+      state: started
     ignore_errors: true
 
-  - name: Stop Mariadb
+  - name: Start Mariadb
     systemd:
       name: mariadb
-      state: stopped
+      state: started
     ignore_errors: true
