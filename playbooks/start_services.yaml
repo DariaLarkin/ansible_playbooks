@@ -1,11 +1,14 @@
 ---
-- name: Starts Services
-  hosts: all  #DB
+- name: My First playbook
+  hosts: all 
   become: true
-  become_method: sudo
+  become_method: sudo 
   user: centos
-  ignore_errors: true          #Dont stop if there are errors
-  tasks:
+  tasks: 
+  - name: Install package 
+    package: 
+      name: httpd
+      state: installed 
 
 
 - name: Start r1soft on CentOS 7
