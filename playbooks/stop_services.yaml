@@ -5,7 +5,7 @@
   become_method: sudo 
   user: centos
   tasks: 
-  - name: Stop rlsoft 
+  - name: Stop r1soft 
     systemd: 
       name: sbm-agent
       state: stopped 
