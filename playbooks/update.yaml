@@ -4,6 +4,7 @@
   become: true
   become_method: sudo
   user: centos
+  ignore_errors: true
   tasks:
   - name: Update kernel
     when: (ansible_distribution == "CentOS" and ansible_distribution_major_version == "7")
