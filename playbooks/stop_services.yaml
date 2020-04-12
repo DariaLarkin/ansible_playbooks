@@ -23,7 +23,7 @@
       state: stopped 
 
 
-  - name: Stop MariaDB 
+  - name: Stop Mariadb 
     systemd: 
       name: mariadb
       state: stopped 
